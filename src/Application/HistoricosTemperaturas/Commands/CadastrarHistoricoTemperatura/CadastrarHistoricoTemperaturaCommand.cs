@@ -9,7 +9,8 @@ using MediatR;
 namespace Application.HistoricosTemperaturas.Commands.CadastrarHistoricoTemperatura;
 
 public sealed record CadastrarHistoricoTemperaturaCommand(
-    string NomeCidade) : IRequest<CadastrarHistoricoTemperaturaResult>;
+    string NomeCidade,
+    string CodigoPais = "BR") : IRequest<CadastrarHistoricoTemperaturaResult>;
 
 public sealed class CadastrarHistoricoTemperaturaCommandHandler
     : IRequestHandler<CadastrarHistoricoTemperaturaCommand, CadastrarHistoricoTemperaturaResult>
@@ -37,7 +38,10 @@ public sealed class CadastrarHistoricoTemperaturaCommandHandler
     public async Task<CadastrarHistoricoTemperaturaResult> Handle(
         CadastrarHistoricoTemperaturaCommand request, CancellationToken cancellationToken)
     {
-        var resultadoClima = await _provedorClimaService.ObterTemperaturaAsync(request.NomeCidade, cancellationToken);
+        var resultadoClima = await _provedorClimaService.ObterTemperaturaAsync(
+            request.NomeCidade,
+            request.CodigoPais,
+            cancellationToken);
 
         var cidade = await _cidadeRepository.ObterPorNomeAsync(request.NomeCidade, cancellationToken);
 

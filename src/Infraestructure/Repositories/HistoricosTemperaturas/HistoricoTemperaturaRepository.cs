@@ -24,6 +24,7 @@ public class HistoricoTemperaturaRepository : IHistoricoTemperaturaRepository
         CancellationToken cancellationToken = default)
     {
         return await _context.Set<HistoricoTemperatura>()
+            .Include(x => x.Cidade)
             .Where(h => h.CidadeId == cidadeId)
             .OrderByDescending(h => h.DataRegistro)
             .ToListAsync(cancellationToken);
@@ -35,13 +36,26 @@ public class HistoricoTemperaturaRepository : IHistoricoTemperaturaRepository
         var dataLimite = DateTime.UtcNow.AddDays(-30);
 
         return await _context.Set<HistoricoTemperatura>()
+            .Include(x => x.Cidade)
             .Where(h => h.CidadeId == cidadeId && h.DataRegistro >= dataLimite)
             .OrderByDescending(h => h.DataRegistro)
+            .ToListAsync(cancellationToken);
+    }
+
+    public Task<List<HistoricoTemperatura>> ObterTodosAsync(CancellationToken cancellationToken = default)
+    {
+        return _context.Set<HistoricoTemperatura>()
+            .Include(x => x.Cidade)
             .ToListAsync(cancellationToken);
     }
 
     public async Task AdicionarAsync(HistoricoTemperatura historico, CancellationToken cancellationToken = default)
     {
         await _context.Set<HistoricoTemperatura>().AddAsync(historico, cancellationToken);
+    }
+
+    public void Remover(HistoricoTemperatura historico)
+    {
+        historico.MarcarComoDeletado();
     }
 }

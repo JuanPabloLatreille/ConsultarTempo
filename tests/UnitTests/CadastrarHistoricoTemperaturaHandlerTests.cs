@@ -49,15 +49,16 @@ public class CadastrarHistoricoTemperaturaHandlerTests
     {
         // Arrange
         var nomeCidade = _faker.Address.City();
+        var codigoPais = _faker.Address.CountryCode();
         var temperatura = _faker.Random.Double(-10, 45);
         var latitude = _faker.Address.Latitude();
         var longitude = _faker.Address.Longitude();
 
         var cidade = Cidade.Criar(nomeCidade, "BR", latitude, longitude);
-        var command = new CadastrarHistoricoTemperaturaCommand(nomeCidade);
+        var command = new CadastrarHistoricoTemperaturaCommand(nomeCidade, codigoPais);
 
         _provedorClimaMock
-            .Setup(p => p.ObterTemperaturaAsync(nomeCidade, It.IsAny<CancellationToken>()))
+            .Setup(p => p.ObterTemperaturaAsync(nomeCidade, codigoPais, It.IsAny<CancellationToken>()))
             .ReturnsAsync(new ResultadoClimaModel(nomeCidade, "BR", temperatura, latitude, longitude));
 
         _cidadeRepositoryMock
@@ -94,14 +95,15 @@ public class CadastrarHistoricoTemperaturaHandlerTests
     {
         // Arrange
         var nomeCidade = _faker.Address.City();
+        var codigoPais = _faker.Address.CountryCode();
         var temperatura = _faker.Random.Double(-10, 45);
         var latitude = _faker.Address.Latitude();
         var longitude = _faker.Address.Longitude();
 
-        var command = new CadastrarHistoricoTemperaturaCommand(nomeCidade);
+        var command = new CadastrarHistoricoTemperaturaCommand(nomeCidade, codigoPais);
 
         _provedorClimaMock
-            .Setup(p => p.ObterTemperaturaAsync(nomeCidade, It.IsAny<CancellationToken>()))
+            .Setup(p => p.ObterTemperaturaAsync(nomeCidade, codigoPais, It.IsAny<CancellationToken>()))
             .ReturnsAsync(new ResultadoClimaModel(nomeCidade, "BR", temperatura, latitude, longitude));
 
         _cidadeRepositoryMock
@@ -138,11 +140,12 @@ public class CadastrarHistoricoTemperaturaHandlerTests
     {
         // Arrange
         var nomeCidade = _faker.Address.City();
+        var codigoPais = _faker.Address.CountryCode();
 
-        var command = new CadastrarHistoricoTemperaturaCommand(nomeCidade);
+        var command = new CadastrarHistoricoTemperaturaCommand(nomeCidade, codigoPais);
 
         _provedorClimaMock
-            .Setup(p => p.ObterTemperaturaAsync(nomeCidade, It.IsAny<CancellationToken>()))
+            .Setup(p => p.ObterTemperaturaAsync(nomeCidade, codigoPais, It.IsAny<CancellationToken>()))
             .ReturnsAsync(new ResultadoClimaModel(nomeCidade, "BR", 20.0, -23.0, -46.0));
 
         _cidadeRepositoryMock
@@ -158,7 +161,7 @@ public class CadastrarHistoricoTemperaturaHandlerTests
 
         // Assert
         _provedorClimaMock.Verify(
-            p => p.ObterTemperaturaAsync(nomeCidade, It.IsAny<CancellationToken>()),
+            p => p.ObterTemperaturaAsync(nomeCidade, codigoPais, It.IsAny<CancellationToken>()),
             Times.Once);
     }
 }

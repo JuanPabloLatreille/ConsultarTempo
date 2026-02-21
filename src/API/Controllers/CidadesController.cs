@@ -2,6 +2,7 @@
 using Application.Cidades.Queries.ConsultarCidadePorId;
 using Application.Cidades.Queries.ConsultarTodasCidades;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -33,6 +34,7 @@ public class CidadesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Cadastrar(
         [FromBody] CadastrarCidadeCommand command, CancellationToken cancellationToken)
     {

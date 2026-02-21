@@ -4,7 +4,10 @@ namespace Domain.Interfaces.Services;
 
 public interface IProvedorClimaService
 {
-    Task<ResultadoClimaModel> ObterTemperaturaAsync(string nomeCidade, CancellationToken cancellationToken = default);
+    Task<ResultadoClimaModel> ObterTemperaturaAsync(
+        string nomeCidade,
+        string codigoPais,
+        CancellationToken cancellationToken = default);
 
     Task<ResultadoClimaModel> ObterTemperaturaPorCoordenadasAsync(
         double latitude,
