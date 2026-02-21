@@ -1,3 +1,4 @@
+using API.Configurations;
 using API.Middlewares;
 using Infraestructure.Data.Context;
 using Infraestructure.DependencyInjections;
@@ -13,8 +14,8 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-
+        builder.Services.AddSwaggerConfig();
+        builder.Services.AddAuthenticationConfig(builder.Configuration);
         builder.Services.AddApplication();
         builder.Services.AddRepositories();
         builder.Services.AddPersistence(builder.Configuration);
@@ -28,6 +29,7 @@ public class Program
 
         app.UseExceptionHandlerMiddleware();
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
         app.MapHealthChecks("/health");
