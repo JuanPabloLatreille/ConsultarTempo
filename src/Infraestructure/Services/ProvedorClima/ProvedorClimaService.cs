@@ -19,11 +19,13 @@ public class ProvedorClimaService : IProvedorClimaService
         _apiKey = options.Value.ApiKey;
     }
 
-    public async Task<ResultadoClimaModel> ObterTemperaturaAsync(string nomeCidade,
+    public async Task<ResultadoClimaModel> ObterTemperaturaAsync(
+        string nomeCidade,
+        string codigoPais,
         CancellationToken cancellationToken = default)
     {
         var request = new RestRequest("weather")
-            .AddQueryParameter("q", nomeCidade)
+            .AddQueryParameter("q", $"{nomeCidade},{codigoPais}")
             .AddQueryParameter("units", "metric")
             .AddQueryParameter("appid", _apiKey);
 
