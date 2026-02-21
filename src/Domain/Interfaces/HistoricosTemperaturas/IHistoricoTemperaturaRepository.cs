@@ -9,6 +9,10 @@ public interface IHistoricoTemperaturaRepository
     Task<List<HistoricoTemperatura>> ObterPorCidadeIdAsync(Guid cidadeId, CancellationToken cancellationToken = default);
 
     Task<List<HistoricoTemperatura>> ObterPorCidadeIdUltimos30DiasAsync(Guid cidadeId, CancellationToken cancellationToken = default);
+    
+    Task<List<HistoricoTemperatura>> ObterTodosAsync(CancellationToken cancellationToken = default);
 
     Task AdicionarAsync(HistoricoTemperatura historico, CancellationToken cancellationToken = default);
+    
+    void Remover(HistoricoTemperatura historico);
 }
