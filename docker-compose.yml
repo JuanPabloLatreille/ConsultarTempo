@@ -16,6 +16,15 @@ services:
       - Jwt__Audience=ConsultWeather
       - Jwt__ExpirationInMinutes=60
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
   db:
     image: postgres:17
     ports:
