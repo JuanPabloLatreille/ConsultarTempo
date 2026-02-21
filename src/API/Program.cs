@@ -36,9 +36,8 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI();
 
-        app.UseExceptionHandlerMiddleware();
         app.UseCors("AllowAll");
-        app.UseHttpsRedirection();
+        app.UseExceptionHandlerMiddleware();
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
