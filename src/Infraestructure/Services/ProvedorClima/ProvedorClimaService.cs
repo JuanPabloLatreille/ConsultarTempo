@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces.Services;
+﻿using Domain.Exceptions;
+using Domain.Interfaces.Services;
 using Domain.Models.ResultadoClima;
 using Infraestructure.Services.ProvedorClima.Options;
 using Infraestructure.Services.ProvedorClima.Responses;
@@ -32,7 +33,8 @@ public class ProvedorClimaService : IProvedorClimaService
         var response = await _client.GetAsync<OpenWeatherResponse>(request, cancellationToken);
 
         if (response?.Main is null)
-            throw new Exception("Não foi possível obter a temperatura da cidade informada.");
+            throw new ValidacaoException(
+                ["Não foi possível obter a temperatura da cidade informada."]);
 
         return new ResultadoClimaModel(
             response.Name,
