@@ -9,6 +9,7 @@ using Domain.Interfaces.Services;
 using Domain.Models.ResultadoClima;
 using FluentAssertions;
 using Moq;
+using NUnit.Framework;
 
 namespace UnitTests;
 
