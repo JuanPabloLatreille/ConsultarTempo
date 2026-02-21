@@ -11,6 +11,10 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=clima_db;Username=postgres;Password=postgres123
       - OpenWeatherMap__ApiKey=7fec86f58c595e84a175de926897fa84
+      - Jwt__SecretKey=ConsultWeatherSuperSecretKey2026!@#MinLength32Chars
+      - Jwt__Issuer=ConsultWeather
+      - Jwt__Audience=ConsultWeather
+      - Jwt__ExpirationInMinutes=60
 
   db:
     image: postgres:17

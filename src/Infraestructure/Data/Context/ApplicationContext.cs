@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Cidades;
 using Domain.Entities.HistoricosTemperaturas;
+using Domain.Entities.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.Data.Context;
@@ -13,6 +14,8 @@ public class ApplicationContext : DbContext
     public DbSet<Cidade> Cidades { get; set; }
 
     public DbSet<HistoricoTemperatura> HistoricosTemperaturas { get; set; }
+    
+    public DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -5,6 +5,7 @@ using Application.HistoricosTemperaturas.Queries.ConsultarHistoricoPorCoordenada
 using Application.HistoricosTemperaturas.Queries.ConsultarHistoricoPorNomeCidade;
 using Application.HistoricosTemperaturas.Queries.ConsultarTodosHistoricos;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -46,6 +47,7 @@ public class HistoricosTemperaturasController : ControllerBase
     }
 
     [HttpPost("por-nome")]
+    [Authorize]
     public async Task<IActionResult> CadastrarPorNome(
         [FromBody] CadastrarHistoricoTemperaturaCommand command, CancellationToken cancellationToken)
     {
@@ -54,6 +56,7 @@ public class HistoricosTemperaturasController : ControllerBase
     }
 
     [HttpPost("por-coordenadas")]
+    [Authorize]
     public async Task<IActionResult> CadastrarPorCoordenadas(
         [FromBody] CadastrarHistoricoTemperaturaPorCoordenadasCommand command, CancellationToken cancellationToken)
     {
@@ -62,6 +65,7 @@ public class HistoricosTemperaturasController : ControllerBase
     }
 
     [HttpDelete("id/{id:guid}")]
+    [Authorize]
     public async Task<IActionResult> RemoverPorId(
         Guid id, CancellationToken cancellationToken)
     {
