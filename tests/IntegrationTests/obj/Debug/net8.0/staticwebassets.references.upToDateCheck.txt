@@ -1,4 +1,0 @@
-C:\Particular\ConsultWeather\src\API\obj\Debug\net8.0\staticwebassets.build.json
-C:\Particular\ConsultWeather\src\API\obj\Debug\net8.0\staticwebassets.build.json
-C:\Particular\ConsultWeather\src\API\obj\Debug\net8.0\staticwebassets.build.json
-C:\Particular\ConsultWeather\src\API\obj\Debug\net8.0\staticwebassets.build.json

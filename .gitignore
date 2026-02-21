@@ -1,0 +1,39 @@
+## .NET / C#
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.user
+*.suo
+*.cache
+*.log
+
+## NuGet
+*.nupkg
+**/packages/
+
+## Visual Studio
+.vs/
+*.sln.docstates
+launchSettings.json
+
+## Rider
+.idea/
+*.DotSettings.user
+
+## User secrets
+secrets.json
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## Docker
+docker-compose.override.yml
+
+## OS
+.DS_Store
+Thumbs.db
