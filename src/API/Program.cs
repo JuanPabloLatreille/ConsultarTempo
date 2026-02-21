@@ -21,6 +21,15 @@ public class Program
         builder.Services.AddPersistence(builder.Configuration);
         builder.Services.AddServices(builder.Configuration);
         builder.Services.AddHealthChecks();
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
 
         var app = builder.Build();
 
@@ -28,6 +37,7 @@ public class Program
         app.UseSwaggerUI();
 
         app.UseExceptionHandlerMiddleware();
+        app.UseCors("AllowAll");
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
