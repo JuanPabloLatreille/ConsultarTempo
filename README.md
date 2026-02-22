@@ -31,6 +31,10 @@ Aplicação full-stack para consulta e registro de temperaturas de cidades brasi
 - PostgreSQL 17
 - Nginx (servidor do frontend com proxy reverso)
 
+### Imagens Docker Hub
+- **API:** `docker pull juanpablolatreille/consultweather-api:latest`
+- **Frontend:** `docker pull juanpablolatreille/consultweather-frontend:latest`
+
 ---
 
 ## Funcionalidades
