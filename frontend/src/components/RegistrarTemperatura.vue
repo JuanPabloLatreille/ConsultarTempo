@@ -6,8 +6,23 @@
       {{ mensagem }}
     </div>
 
+    <div class="tipo-consulta">
+      <button
+        :class="['aba', tipo === 'nome' ? 'ativa' : '']"
+        @click="tipo = 'nome'"
+      >
+        Por Nome
+      </button>
+      <button
+        :class="['aba', tipo === 'coordenadas' ? 'ativa' : '']"
+        @click="tipo = 'coordenadas'"
+      >
+        Por Coordenadas
+      </button>
+    </div>
+
     <form @submit.prevent="registrar">
-      <div class="campo">
+      <div v-if="tipo === 'nome'" class="campo">
         <label for="cidade">Nome da Cidade</label>
         <input
           id="cidade"
@@ -16,6 +31,31 @@
           placeholder="Ex: Toledo"
           required
         />
+      </div>
+
+      <div v-if="tipo === 'coordenadas'">
+        <div class="campo">
+          <label for="latitude">Latitude</label>
+          <input
+            id="latitude"
+            v-model.number="latitude"
+            type="number"
+            step="any"
+            placeholder="Ex: -24.7253"
+            required
+          />
+        </div>
+        <div class="campo">
+          <label for="longitude">Longitude</label>
+          <input
+            id="longitude"
+            v-model.number="longitude"
+            type="number"
+            step="any"
+            placeholder="Ex: -53.7412"
+            required
+          />
+        </div>
       </div>
 
       <button type="submit" :disabled="carregando" class="btn-primario">
@@ -37,7 +77,10 @@ import { temperaturaService, type RegistroTemperatura } from '@/services/tempera
 
 const emit = defineEmits(['registrado'])
 
+const tipo = ref<'nome' | 'coordenadas'>('nome')
 const nomeCidade = ref('')
+const latitude = ref<number | null>(null)
+const longitude = ref<number | null>(null)
 const carregando = ref(false)
 const resultado = ref<RegistroTemperatura | null>(null)
 const mensagem = ref('')
@@ -53,7 +96,11 @@ async function registrar() {
   resultado.value = null
 
   try {
-    resultado.value = await temperaturaService.registrarPorNome(nomeCidade.value)
+    if (tipo.value === 'nome') {
+      resultado.value = await temperaturaService.registrarPorNome(nomeCidade.value)
+    } else {
+      resultado.value = await temperaturaService.registrarPorCoordenadas(latitude.value!, longitude.value!)
+    }
     mensagem.value = 'Temperatura registrada com sucesso!'
     mensagemTipo.value = 'sucesso'
     emit('registrado')
@@ -77,6 +124,28 @@ async function registrar() {
 .registrar-card h2 {
   margin-bottom: 1rem;
   color: #1a1a2e;
+}
+
+.tipo-consulta {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.aba {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #666;
+}
+
+.aba.ativa {
+  background-color: #4a90d9;
+  color: white;
+  border-color: #4a90d9;
 }
 
 .campo {

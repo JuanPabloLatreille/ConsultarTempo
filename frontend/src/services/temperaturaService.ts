@@ -21,6 +21,11 @@ export const temperaturaService = {
     return response.data
   },
 
+  async registrarPorCoordenadas(latitude: number, longitude: number): Promise<RegistroTemperatura> {
+  const response = await api.post('/historicostemperaturas/por-coordenadas', { latitude, longitude })
+  return response.data
+  },
+
   async consultarPorNome(nomeCidade: string): Promise<HistoricoTemperatura[]> {
     const response = await api.get(`/historicostemperaturas/por-nome/${nomeCidade}`)
     return response.data
