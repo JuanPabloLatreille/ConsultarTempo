@@ -4,5 +4,5 @@ public sealed record CadastrarHistoricoTemperaturaPorCoordenadasResult(
     Guid Id,
     Guid CidadeId,
     string NomeCidade,
-    double Temperatura,
+    double TemperaturaAtual,
     DateTime DataRegistro);
